@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  licensed-data:
+    name: Licensed-data guard
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0  # --range reads every commit in the PR, not only the final tree
+      - name: Tracked files
+        run: ruby script/licensed-data-guard --all
+      - name: Every commit in the PR
+        if: ${{ github.event_name == 'pull_request' }}
+        run: ruby script/licensed-data-guard --range "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
+
+  test:
+    name: Specs
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version-file: .ruby-version
+          bundler-cache: true
+      - run: bundle exec rspec

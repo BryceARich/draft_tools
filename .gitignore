@@ -1,0 +1,15 @@
+/.bundle/
+/vendor/bundle/
+/tmp/
+/coverage/
+
+# Local config and secrets (ESPN cookies etc.) never get committed
+.env
+.env.*
+/mise.local.toml
+
+# Local data: licensed exports, snapshots and league data never enter git (ADR 0001).
+# Keep them outside the repo; these paths are a second line of defence.
+/data/
+/exports/
+/snapshots/
