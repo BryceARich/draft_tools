@@ -13,6 +13,8 @@ Getting it running on a clean machine from this file is carried over to C2-05 (#
 
 All are on GitHub: <https://github.com/BryceARich/draft_tools/issues>.
 
+`script/claude/ready-issues --all` shows what is ready now; `/spawn_unblocked` starts it.
+
 | Issue | Waits on |
 |---|---|
 | C2-01 Scoring rules JSON (#2) | `sports_ingest` M4-02 |

@@ -9,3 +9,5 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Docs and conventions scaffold: README index, `CLAUDE.md`, `CONTRIBUTING.md`, `docs/` (RESUME with
   the yearly draft-prep runbook, SETUP, ARCHITECTURE, ADRs), issue and PR templates, and the
   licensed-data guard (script, pre-commit hook, CI) copied from `sports_ingest`. ADR 0001 (C2-00).
+- `/spawn_unblocked` and `script/claude/ready-issues`, adapted from `sports_ingest`: start a Claude
+  session for each issue whose blockers, here or in another repo, have closed.

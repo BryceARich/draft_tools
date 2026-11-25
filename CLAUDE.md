@@ -15,6 +15,7 @@ something, open a consumer request in `sports_ingest`.
 bin/setup                          # Ruby, gems, pre-commit hook
 bundle exec rspec                  # tests
 script/licensed-data-guard --all   # check tracked files for licensed data
+script/claude/ready-issues --all   # issues ready to start, and why the others are not
 ```
 
 When these change, update this list and `docs/SETUP.md` together.
@@ -58,3 +59,8 @@ it's a heuristic: if a staged file looks like a real export, stop and say so.
 
 Read the issue and its "Blocked by" list, do only what it asks, check its Definition of Done, then
 open a PR that says `Closes #N`. Update `docs/RESUME.md` when status changes.
+
+**`/spawn_unblocked [max] [--dry-run]`**, run in the Claude desktop app after a merge, starts a session
+in its own worktree for each ready issue (at most 3 by default), with Remote Control on. Issues opened
+by people with no role on the repo are skipped, and sessions read only comments by people
+with one; keep it that way. Blockers can be in another repo (`BryceARich/sports_ingest#33`).
