@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Lists issues ready to start: every blocker closed (in this repo or another) and not already taken.
+#
+#   script/claude/ready-issues            # ready issues only
+#   script/claude/ready-issues --all      # also the skipped ones, and why
+require_relative "lib/issues"
+
+ready, skipped = ReadyIssues.classify.partition { |r| r[:reason].nil? }
+ready.each do |r|
+  i = r[:issue]
+  puts "READY  ##{i["number"]}  #{ReadyIssues.label(i)}  #{ReadyIssues.branch_name(i)}  #{ReadyIssues.model_for(i)}  #{i["title"]}"
+end
+puts "(none ready)" if ready.empty?
+if ARGV.include?("--all")
+  skipped.each { |r| puts "skip   ##{r[:issue]["number"]}  #{ReadyIssues.label(r[:issue])}  #{r[:reason]}" }
+else
+  puts "#{skipped.size} skipped (--all to list)"
+end
